@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  title: Customer Information Service
+  description: API to query customer information
+  version: 1.0.0
+
+paths:
+  /api/customer/{documentType}-{documentNumber}:
+    get:
+      summary: Get customer information
+      description: Retrieves basic information of a customer based on document type and number in the path.
+      parameters:
+        - name: documentType
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [C, P]
+          description: Document type (C for ID, P for passport)
+        - name: documentNumber
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Customer's document number
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "C-400"
+                  message:
+                    type: string
+                    example: "Document type and document number are required"
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "C-404"
+                  message:
+                    type: string
+                    example: "Consumer was not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "C-500"
+                  message:
+                    type: string
+                    example: "The database is not accessible"
+
+
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        documentNumber:
+          type: integer
+          example: 23445322
+          description: Customer's document number
+        documentType:
+          type: string
+          enum: [C, P]
+          example: 'C'
+          description: Document type (C for ID, P for passport)
+        firstName:
+          type: string
+          example: 'Kevin'
+          description: Customer's first name
+        middleName:
+          type: string
+          example: 'Fernando'
+          description: Customer's middle name
+        firstSurname:
+          type: string
+          example: 'Vidal'
+          description: Customer's first surname
+        secondSurname:
+          type: string
+          example: 'Mina'
+          description: Customer's second surname
+        telephone:
+          type: string
+          example: '3046149193'
+          description: Customer's phone number
+        address:
+          type: string
+          example: 'Crr24 #24-08'
+          description: Customer's address
+        hometown:
+          type: string
+          example: 'Cali'
+          description: Customer's hometown
+

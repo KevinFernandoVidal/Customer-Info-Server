@@ -1,0 +1,2 @@
+INSERT INTO CUSTOMERS (document_number, document_type, first_name, middle_name, first_surname, second_surname, telephone, address, hometown)
+VALUES (23445322, 'C', 'Kevin', 'Fernando', 'Vidal', 'Mina', '3046149193', 'Crr 24 #24-08', 'Cali');
